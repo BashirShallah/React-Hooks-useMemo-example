@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useMemo} from 'react';
+
+const randomColour = () => '#'+(Math.random()*0xFFFFFF<<0).toString(16);
 
 function App() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [age, setAge] = useState('');
+
+  const FullName = useMemo(() => <div style={{color: randomColour()}}>{firstName} {lastName}</div>, 
+    [firstName, lastName]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      
+      FullName: {FullName}
+      Age: {age}
+      <br />
+
+      <input value={firstName} placeholder='First Name' onChange={(e => setFirstName(e.target.value))} />
+      <input value={lastName} placeholder='Last Name' onChange={(e => setLastName(e.target.value))} />
+      <input type='number' value={age} placeholder='Age' onChange={(e => setAge(e.target.value))} />
     </div>
   );
 }
